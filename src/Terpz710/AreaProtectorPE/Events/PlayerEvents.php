@@ -48,20 +48,25 @@ class PlayerEvents implements Listener
     public function onInteract(PlayerInteractEvent $event): void
     {
         $player = $event->getPlayer();
-        if (isset(self::$players[$player->getName()])) {
-            $name = self::$players[$player->getName()]["name"];
-            if (count(array_keys(self::$players[$player->getName()])) === 1) {
-                self::$players[$player->getName()] = ["pos" => ProtectArea::getInstance()->getProtectAreaAPI()->getStringByPosition($event->getBlock()->getPosition()), "name" => $name];
-                $player->sendMessage(Utils::getConfigReplace("add_one"));
-            } elseif (count(array_keys(self::$players[$player->getName()])) === 2) {
-                self::$players[$player->getName()] = ["pos1" => ProtectArea::getInstance()->getProtectAreaAPI()->getStringByPosition($event->getBlock()->getPosition()), "pos" => self::$players[$player->getName()]["pos"], "name" => $name];
-                ProtectArea::getInstance()->getProtectAreaAPI()->addArea(
-                    self::$players[$player->getName()]["name"],
-                    ProtectArea::getInstance()->getProtectAreaAPI()->getPositionByString(self::$players[$player->getName()]["pos"]),
-                    ProtectArea::getInstance()->getProtectAreaAPI()->getPositionByString(self::$players[$player->getName()]["pos1"])
-                );
-                $player->sendMessage(Utils::getConfigReplace("add_area", "{area}", self::$players[$player->getName()]["name"]));
-                unset(self::$players[$player->getName()]);
+        
+        if ($event->getAction() === PlayerInteractEvent::LEFT_CLICK_BLOCK) {
+            if (isset(self::$players[$player->getName()])) {
+                $name = self::$players[$player->getName()]["name"];
+                
+                if (count(array_keys(self::$players[$player->getName()])) === 1) {
+                    self::$players[$player->getName()] = ["pos" => ProtectArea::getInstance()->getProtectAreaAPI()->getStringByPosition($event->getBlock()->getPosition()), "name" => $name];
+                    $player->sendMessage(Utils::getConfigReplace("add_one"));
+                } 
+                elseif (count(array_keys(self::$players[$player->getName()])) === 2) {
+                    self::$players[$player->getName()] = ["pos1" => ProtectArea::getInstance()->getProtectAreaAPI()->getStringByPosition($event->getBlock()->getPosition()), "pos" => self::$players[$player->getName()]["pos"], "name" => $name];
+                    ProtectArea::getInstance()->getProtectAreaAPI()->addArea(
+                        self::$players[$player->getName()]["name"],
+                        ProtectArea::getInstance()->getProtectAreaAPI()->getPositionByString(self::$players[$player->getName()]["pos"]),
+                        ProtectArea::getInstance()->getProtectAreaAPI()->getPositionByString(self::$players[$player->getName()]["pos1"])
+                    );
+                    $player->sendMessage(Utils::getConfigReplace("add_area", "{area}", self::$players[$player->getName()]["name"]));
+                    unset(self::$players[$player->getName()]);
+                }
             }
         }
     }
