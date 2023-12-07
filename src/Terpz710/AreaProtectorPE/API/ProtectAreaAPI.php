@@ -88,7 +88,6 @@ class ProtectAreaAPI
                     $one = [$one->x, $one->y, $one->z];
                     $two = [$two->x, $two->y, $two->z];
                     if ($this->isInArea($one, $two, $position)) {
-                        return !$this->data->get($area)[$action];
                         break;
                     }
                 }
