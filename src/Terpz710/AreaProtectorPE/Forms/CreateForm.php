@@ -39,9 +39,7 @@ class CreateForm implements Form
         $this->data["title"] = Utils::getConfigReplace("title");
         $this->data["content"] = [];
 
-        $this->data["content"][] = ["type" => "input", "text" => "Area", "placeholder" => "DigueArea", "default" => null];
-        $label = "default_label";
-        $this->labelMap[] = $label;
+        $this->data["content"][] = ["type" => "input", "text" => "Area", "placeholder" => "Area", "default" => null];
     }
 
     public function processData(&$data): void
