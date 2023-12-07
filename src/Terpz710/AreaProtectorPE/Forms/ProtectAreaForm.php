@@ -4,7 +4,6 @@ namespace Terpz710\AreaProtectorPE\Forms;
 
 use pocketmine\form\Form;
 use pocketmine\player\Player;
-
 use Terpz710\AreaProtectorPE\Utils\Utils;
 
 class ProtectAreaForm implements Form
@@ -23,7 +22,8 @@ class ProtectAreaForm implements Form
             $form = match ($data) {
                 0 => new CreateForm(),
                 1 => new ListForm(),
-                2 => new RemoveForm()
+                2 => new RemoveForm(),
+                default => throw new \InvalidArgumentException("Invalid data value: $data")
             };
             $player->sendForm($form);
         };
