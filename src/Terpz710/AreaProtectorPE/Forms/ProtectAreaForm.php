@@ -43,7 +43,7 @@ class ProtectAreaForm implements Form
 
     public function initText(): void
     {
-        $this->data["title"] = Utils::getConfigReplace("title") !== null ? Utils::getConfigReplace("title") : "";
+        $this->data["title"] = $this->data["title"] ?? Utils::getConfigReplace("title") ?: "";
         $this->data["content"] = Utils::getConfigReplace("content");
 
         $this->data["buttons"][] = ["text" => Utils::getConfigReplace("button_create")];
