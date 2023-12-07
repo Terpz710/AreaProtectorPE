@@ -41,7 +41,7 @@ class CreateForm implements Form
 
         $this->data["content"][] = ["type" => "input", "text" => "Area", "placeholder" => "DigueArea", "default" => null];
         $label = "default_label";
-        $this->labelMap[] = $label ?? count($this->labelMap);
+        $this->labelMap[] = $label;
     }
 
     public function processData(&$data): void
