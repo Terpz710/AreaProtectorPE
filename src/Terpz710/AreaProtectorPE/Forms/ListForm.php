@@ -39,7 +39,7 @@ class ListForm implements Form
 
     public function initText(): void
     {
-        $this->data["title"] = $this->data["title"] ?? Utils::getConfigReplace("title", "") ?? "";
+        $this->data["title"] = $this->data["title"] ?? Utils::getConfigReplace("title") ?: "";
         $this->data["content"] = Utils::getConfigReplace("content");
 
         foreach (ProtectArea::getInstance()->getProtectAreaAPI()->getAllArea() as $area) {
